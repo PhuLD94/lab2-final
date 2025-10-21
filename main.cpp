@@ -41,24 +41,35 @@ int main() {
                 cout << "Invalid input. Please enter a number between 0 and 4.\n";
                 continue;
             }
-            if (option < 0 || option > 4) {
+            if (option < 0 || option > 5) {
                 cout << "Please enter a number between 0 and 4.\n";
                 continue;
             }
             break;
         }
+        if (option == 5) {
+            displaySeating(seats);
+        }
+        
 
         if (option == 1) {
-            cout << "Press 1 to manually input row prices, 2 to load from file, or 3 to return to menu: ";
             int price_option;
-            cin >> price_option;
-            do{
-                cout << "Invalid option, please try again.\n";
+            
+            while (true) {
                 cout << "Press 1 to manually input row prices, 2 to load from file, or 3 to return to menu: ";
-                cin >> price_option;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            } while (cin.fail() || price_option < 1 || price_option > 3);
+                if (!(cin >> price_option)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input, please enter a number between 1 and 3.\n";
+                    continue;
+                }
+                if (price_option < 1 || price_option > 3) {
+                    cout << "Please enter a number between 1 and 3.\n";
+                    continue;
+                }
+                
+                break;
+            }
 
             if (price_option == 1) {
                 updatePrice(price_arr, "inputfile.txt");
@@ -87,15 +98,21 @@ int main() {
         else if (option == 2) {
             int row, col;
             int purchase_type;
-            cout << "Enter 1 for single ticket purchase, 2 for multiple tickets purchase or 3 to return to menu: ";
-            cin >> purchase_type;
-            do{
-                cout << "Invalid option, please try again.\n";
+            while(true){
                 cout << "Enter 1 for single ticket purchase, 2 for multiple tickets purchase or 3 to return to menu: ";
-                cin >> purchase_type;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            } while (cin.fail() || purchase_type < 1 || purchase_type > 3);
+                if (!(cin >> purchase_type)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input, please enter a number between 1 and 3.\n";
+                    continue;
+                }
+                if (purchase_type < 1 || purchase_type > 3) {
+                    cout << "Please enter a number between 1 and 3.\n";
+                    continue;
+                }
+                
+                break;
+            }
             if (purchase_type==1){
                 cout << "Enter the row (1-" << ROWS << "): "; cin >> row;
                 cout << "Enter the seat (1-" << COLS << "): "; cin >> col;
